@@ -1,5 +1,6 @@
 package com.example.springboot.entities;
 
+import com.example.springboot.entities.enums.StatusOrder;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Instant moment;
+    private int statusOrder;
     @ManyToOne
     @JoinColumn(name = "fk_client")
     private User client;
@@ -21,9 +23,10 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Integer id, Instant moment, User client) {
+    public Order(Integer id, Instant moment, StatusOrder statusOrder, User client) {
         this.id = id;
         this.moment = moment;
+        setStatusOrder(statusOrder);
         this.client = client;
     }
 
@@ -49,6 +52,14 @@ public class Order implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public StatusOrder getStatusOrder(int code) {
+        return StatusOrder.valueOf(code);
+    }
+
+    public void setStatusOrder(StatusOrder statusOrder) {
+        this.statusOrder = statusOrder.getCode();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.springboot.config;
 
 import com.example.springboot.entities.Order;
 import com.example.springboot.entities.User;
+import com.example.springboot.entities.enums.StatusOrder;
 import com.example.springboot.repositories.OrderRepository;
 import com.example.springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class TestConfig implements CommandLineRunner {
         User u2 = new User(null, "David", "David@gmail.com", "David10", "4004-8922");
         userRepository.saveAll(Arrays.asList(u1, u2));
 
-        Order order1 = new Order(null, Instant.parse("2023-07-25T09:57:29Z"), u1);
-        Order order2 = new Order(null, Instant.parse("2023-07-25T13:30:20Z"), u2);
+        Order order1 = new Order(null, Instant.parse("2023-07-25T09:57:29Z"), StatusOrder.CANCELED, u1);
+        Order order2 = new Order(null, Instant.parse("2023-07-25T13:30:20Z"), StatusOrder.WAITING_PAYMENT, u2);
         orderRepository.saveAll(Arrays.asList(order1, order2));
 
     }
